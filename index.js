@@ -1,13 +1,13 @@
 let todos = ["Todo 1", "Todo 2", "Todo 3"];
 
 const listContainer = document.querySelector(".list-container");
+const counter = document.querySelector(".count");
 
 const handleDelete = (deletedItem) => {
   const index = todos.indexOf(deletedItem);
   if (index > -1) {
     todos.splice(index, 1);
   }
-
   updateList();
 };
 const updateList = () => {
@@ -24,6 +24,7 @@ const updateList = () => {
       handleDelete(todo);
     });
   });
+  counter.innerHTML = todos.length;
 };
 
 updateList();
