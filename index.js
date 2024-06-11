@@ -2,10 +2,9 @@ const todos = ["Todo 1", "Todo 2", "Todo 3"];
 
 const listContainer = document.querySelector(".list-container");
 todos.forEach((todo) => {
-  const todoLabel = document.createElement("label");
-  todoLabel.textContent = todo;
-  console.log(todoLabel);
-  listContainer.appendChild(todoLabel);
+  let todoItem = document.createElement("li");
+  todoItem.innerHTML = `<input type="checkbox" id="${todo}"><label for="${todo}">${todo}</label>`;
+  listContainer.appendChild(todoItem);
 });
 
 console.log(todos);
