@@ -2,6 +2,16 @@ let todos = ["Todo 1", "Todo 2", "Todo 3"];
 
 const listContainer = document.querySelector(".list-container");
 const counter = document.querySelector(".count");
+const addBtn = document.querySelector("#add-btn");
+const newTodo = document.querySelector("#new-todo");
+
+addBtn.addEventListener("click", () => {
+  if (newTodo.value.trim()) {
+    todos.push(newTodo.value.trim());
+    newTodo.value = "";
+    updateList();
+  }
+});
 
 const handleDelete = (deletedItem) => {
   const index = todos.indexOf(deletedItem);
