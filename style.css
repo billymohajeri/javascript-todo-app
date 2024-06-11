@@ -13,6 +13,7 @@ body {
   flex-direction: column;
   background-color: bisque;
   padding: 10px;
+  min-width: 300px;
 }
 
 .list-container {
