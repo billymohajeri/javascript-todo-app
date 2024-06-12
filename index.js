@@ -10,7 +10,7 @@ addBtn.addEventListener("click", () => {
     const newTodoObj = {
       id: Date.now(),
       title: newTodo.value.trim(),
-      done: true,
+      isDone: false,
     };
     todos.push(newTodoObj);
     newTodo.value = "";
@@ -29,13 +29,13 @@ const handleDelete = (deletedItemID) => {
 const handleEdit = (todoToEditID) => {
   const label = document.getElementById(`lbl${todoToEditID}`);
   const editBtn = document.getElementById(`edt${todoToEditID}`);
-  if (editBtn.value === "Edit") {
+  if (editBtn.innerHTML.includes("fa-pen-to-square")) {
     const input = document.createElement("input");
     input.type = "text";
     input.id = `input${todoToEditID}`;
     input.value = label.textContent;
     label.replaceWith(input);
-    editBtn.value = "Save";
+    editBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i>';
   } else {
     const input = document.getElementById(`input${todoToEditID}`);
     const newValue = input.value.trim();
@@ -54,27 +54,29 @@ const handleEdit = (todoToEditID) => {
 const updateList = () => {
   listContainer.innerHTML = "";
   todos.forEach((todo) => {
-    const { id, title, done } = todo;
-    let todoItem = document.createElement("li");
-    todoItem.innerHTML = `<input type="checkbox" checked="${done}">
-    <label for="${id}" id="lbl${id}">${title}</label><input type="button" value="Delete" class="del-btn" id="del${id}">
-    <input type="button" value="Edit" class="edit-btn" id="edt${id}">`;
-    listContainer.appendChild(todoItem);
-  });
-  const delBtns = document.querySelectorAll(".del-btn");
-  delBtns.forEach((delBtn) => {
-    delBtn.addEventListener("click", () => {
-      const delID = parseInt(delBtn.id.replace("del", ""));
-      handleDelete(delID);
-    });
-  });
+    const { id, title, isDone } = todo;
 
-  const editBtns = document.querySelectorAll(".edit-btn");
-  editBtns.forEach((editBtn) => {
-    editBtn.addEventListener("click", () => {
-      const edtID = parseInt(editBtn.id.replace("edt", ""));
-      handleEdit(edtID);
-    });
+    let todoItem = document.createElement("li");
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = isDone;
+
+    const label = document.createElement("label");
+    label.id = `lbl${id}`;
+    label.textContent = title;
+
+    const delBtn = document.createElement("button");
+    delBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
+    delBtn.addEventListener("click", () => handleDelete(id));
+
+    const editBtn = document.createElement("button");
+    editBtn.innerHTML = '<i class="fa-solid fa-pen-to-square"></i>';
+    editBtn.id = `edt${id}`;
+    editBtn.addEventListener("click", () => handleEdit(id));
+
+    todoItem.append(checkbox, label, delBtn, editBtn);
+    listContainer.appendChild(todoItem);
   });
 
   counter.innerHTML = `Total Todos: ${todos.length}`;
