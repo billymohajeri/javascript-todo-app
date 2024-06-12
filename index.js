@@ -13,6 +13,7 @@ addBtn.addEventListener("click", () => {
       isDone: false,
     };
     todos.push(newTodoObj);
+    setStorage(todos);
     newTodo.value = "";
     updateList();
   }
@@ -22,7 +23,7 @@ const handleDelete = (deletedItemID) => {
   todos = todos.filter((todo) => {
     return todo.id !== deletedItemID;
   });
-
+  setStorage(todos);
   updateList();
 };
 
@@ -45,6 +46,7 @@ const handleEdit = (todoToEditID) => {
       );
       if (index !== -1) {
         todos[index].title = newValue;
+        setStorage(todos);
       }
     }
     updateList();
@@ -82,4 +84,15 @@ const updateList = () => {
   counter.innerHTML = `Total Todos: ${todos.length}`;
 };
 
-updateList();
+window.addEventListener("DOMContentLoaded", () => {
+  getStorage();
+  updateList();
+});
+
+const setStorage = (todos) => {
+  localStorage.setItem("todos", JSON.stringify(todos));
+};
+
+const getStorage = () => {
+  todos = JSON.parse(localStorage.getItem("todos"));
+};
