@@ -1,4 +1,4 @@
-let todos = ["Todo 1", "Todo 2", "Todo 3"];
+let todos = [];
 
 const listContainer = document.querySelector(".list-container");
 const counter = document.querySelector("#count");
@@ -7,17 +7,22 @@ const newTodo = document.querySelector("#new-todo");
 
 addBtn.addEventListener("click", () => {
   if (newTodo.value.trim()) {
-    todos.push(newTodo.value.trim());
+    const newTodoObj = {
+      id: Date.now(),
+      title: newTodo.value.trim(),
+      done: true,
+    };
+    todos.push(newTodoObj);
     newTodo.value = "";
     updateList();
   }
 });
 
-const handleDelete = (deletedItem) => {
-  const index = todos.indexOf(deletedItem);
-  if (index > -1) {
-    todos.splice(index, 1);
-  }
+const handleDelete = (deletedItemID) => {
+  todos = todos.filter((todo) => {
+    todo.id !== deletedItemID;
+  });
+
   updateList();
 };
 
@@ -45,17 +50,17 @@ const handleEdit = (todoToEdit, editBtn) => {
 const updateList = () => {
   listContainer.innerHTML = "";
   todos.forEach((todo) => {
+    const { id, title, done } = todo;
     let todoItem = document.createElement("li");
-    todoItem.innerHTML = `<input type="checkbox" id="${todo}">
-    <label for="${todo}">${todo}</label><input type="button" value="Delete" class="del-btn" data-todo="${todo}">
+    todoItem.innerHTML = `<input type="checkbox" id="${id}" checked="${done}">
+    <label for="${id}">${title}</label><input type="button" value="Delete" class="del-btn" id="${id}">
     <input type="button" value="Edit" class="edit-btn" data-todo="${todo}">`;
     listContainer.appendChild(todoItem);
   });
   const delBtns = document.querySelectorAll(".del-btn");
   delBtns.forEach((delBtn) => {
-    delBtn.addEventListener("click", (e) => {
-      const todo = e.target.getAttribute("data-todo");
-      handleDelete(todo);
+    delBtn.addEventListener("click", () => {
+      handleDelete(delBtn.id);
     });
   });
 
