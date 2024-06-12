@@ -5,7 +5,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .main-container {
@@ -14,6 +14,7 @@ body {
   background-color: bisque;
   padding: 10px;
   min-width: 300px;
+  border-radius: 1rem;
 }
 
 .list-container {
@@ -22,21 +23,28 @@ body {
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
+  border-radius: 1rem;
+}
+
+.add-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 
 ul {
-    list-style-type: none; 
-    padding: 0;
-    margin: 0; 
-  }
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
 
-  li{
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid gray;
-    padding: 10px;
-  }
+li {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid gray;
+  padding: 10px;
+}
 
-  h4{
-    text-align: center;
-  }
+h1 {
+  text-align: center;
+}
