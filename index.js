@@ -1,7 +1,7 @@
 let todos = ["Todo 1", "Todo 2", "Todo 3"];
 
 const listContainer = document.querySelector(".list-container");
-const counter = document.querySelector(".count");
+const counter = document.querySelector("#count");
 const addBtn = document.querySelector("#add-btn");
 const newTodo = document.querySelector("#new-todo");
 
@@ -67,7 +67,7 @@ const updateList = () => {
     });
   });
 
-  counter.innerHTML = todos.length;
+  counter.innerHTML = `Total Todos: ${todos.length}`;
 };
 
 updateList();
