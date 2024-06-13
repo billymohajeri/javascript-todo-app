@@ -4,6 +4,9 @@ const listContainer = document.querySelector(".list-container");
 const counter = document.querySelector("#count");
 const addBtn = document.querySelector("#add-btn");
 const newTodo = document.querySelector("#new-todo");
+const searchBtn = document.querySelector("#search-btn");
+const searchInput = document.querySelector("#search-input");
+const resetSearch = document.querySelector("#reset-search");
 
 addBtn.addEventListener("click", () => {
   if (newTodo.value.trim()) {
@@ -15,8 +18,23 @@ addBtn.addEventListener("click", () => {
     todos.push(newTodoObj);
     setStorage(todos);
     newTodo.value = "";
-    updateList();
+    updateList(todos);
   }
+});
+
+searchBtn.addEventListener("click", () => {
+  resetSearch.disabled = false;
+  const searchValue = searchInput.value.trim();
+  const filteredTodos = todos.filter((todo) => {
+    return todo.title.includes(searchValue);
+  });
+  searchInput.value = "";
+  updateList(filteredTodos);
+});
+
+resetSearch.addEventListener("click", () => {
+  resetSearch.disabled = true;
+  updateList(todos);
 });
 
 const handleDelete = (deletedItemID) => {
@@ -24,7 +42,7 @@ const handleDelete = (deletedItemID) => {
     return todo.id !== deletedItemID;
   });
   setStorage(todos);
-  updateList();
+  updateList(todos);
 };
 
 const handleEdit = (todoToEditID) => {
@@ -49,11 +67,11 @@ const handleEdit = (todoToEditID) => {
         setStorage(todos);
       }
     }
-    updateList();
+    updateList(todos);
   }
 };
 
-const updateList = () => {
+const updateList = (todos) => {
   listContainer.innerHTML = "";
   todos.forEach((todo) => {
     const { id, title, isDone } = todo;
@@ -85,8 +103,9 @@ const updateList = () => {
 };
 
 window.addEventListener("DOMContentLoaded", () => {
+  resetSearch.disabled = true;
   getStorage();
-  updateList();
+  updateList(todos);
 });
 
 const setStorage = (todos) => {
