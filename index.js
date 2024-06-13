@@ -39,6 +39,12 @@ resetSearch.addEventListener("click", () => {
   updateList(todos);
 });
 
+const handleCheck = (id, flag) => {
+  const index = todos.findIndex((todo) => todo.id === parseInt(id));
+  todos[index].isDone = !flag;
+  setStorage(todos);
+};
+
 const handleDelete = (deletedItemID) => {
   todos = todos.filter((todo) => {
     return todo.id !== deletedItemID;
@@ -83,6 +89,7 @@ const updateList = (todos) => {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = isDone;
+    checkbox.addEventListener("click", () => handleCheck(id, isDone));
 
     const label = document.createElement("label");
     label.id = `lbl${id}`;
