@@ -32,7 +32,7 @@ body {
   margin-bottom: 1rem;
 }
 
-.search-form{
+.search-form {
   display: flex;
   justify-content: center;
 }
@@ -50,6 +50,20 @@ li {
   padding: 10px;
 }
 
+.left-div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.right-div {
+  display: flex;
+  gap: 0.5rem;
+}
+
 h1 {
   text-align: center;
+}
+
+.line-through {
+  text-decoration: line-through;
 }

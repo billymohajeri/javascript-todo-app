@@ -43,6 +43,7 @@ const handleCheck = (id, flag) => {
   const index = todos.findIndex((todo) => todo.id === parseInt(id));
   todos[index].isDone = !flag;
   setStorage(todos);
+  updateList(todos);
 };
 
 const handleDelete = (deletedItemID) => {
@@ -86,14 +87,29 @@ const updateList = (todos) => {
 
     let todoItem = document.createElement("li");
 
+    const leftDiv = document.createElement("div");
+    leftDiv.classList.add("left-div");
+
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
+    checkbox.id = `chk${id}`;
     checkbox.checked = isDone;
     checkbox.addEventListener("click", () => handleCheck(id, isDone));
 
     const label = document.createElement("label");
     label.id = `lbl${id}`;
+    label.htmlFor = `chk${id}`;
     label.textContent = title;
+    if (isDone) {
+      label.classList.add("line-through");
+    } else {
+      label.classList.remove("line-through");
+    }
+
+    leftDiv.append(checkbox, label);
+
+    const rightDiv = document.createElement("div");
+    rightDiv.classList.add("right-div");
 
     const delBtn = document.createElement("button");
     delBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
@@ -104,7 +120,9 @@ const updateList = (todos) => {
     editBtn.id = `edt${id}`;
     editBtn.addEventListener("click", () => handleEdit(id));
 
-    todoItem.append(checkbox, label, delBtn, editBtn);
+    rightDiv.append(delBtn, editBtn);
+
+    todoItem.append(leftDiv, rightDiv);
     listContainer.appendChild(todoItem);
   });
 
