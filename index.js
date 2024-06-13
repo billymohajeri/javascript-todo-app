@@ -8,7 +8,8 @@ const searchBtn = document.querySelector("#search-btn");
 const searchInput = document.querySelector("#search-input");
 const resetSearch = document.querySelector("#reset-search");
 
-addBtn.addEventListener("click", () => {
+addBtn.addEventListener("click", (e) => {
+  e.preventDefault();
   if (newTodo.value.trim()) {
     const newTodoObj = {
       id: Date.now(),
@@ -22,7 +23,8 @@ addBtn.addEventListener("click", () => {
   }
 });
 
-searchBtn.addEventListener("click", () => {
+searchBtn.addEventListener("click", (e) => {
+  e.preventDefault();
   resetSearch.disabled = false;
   const searchValue = searchInput.value.trim();
   const filteredTodos = todos.filter((todo) => {
