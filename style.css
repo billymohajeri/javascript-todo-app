@@ -32,6 +32,11 @@ body {
   margin-bottom: 1rem;
 }
 
+.search-container{
+  display: flex;
+  justify-content: center;
+}
+
 ul {
   list-style-type: none;
   padding: 0;
